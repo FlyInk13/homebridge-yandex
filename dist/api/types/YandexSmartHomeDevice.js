@@ -4,6 +4,7 @@ exports.YandexSmartHomeDevice = void 0;
 // https://yandex.ru/dev/dialogs/smart-home/doc/concepts/capability-types.html#capability-types__types
 class YandexSmartHomeDevice {
     constructor(yaSmartHome, device) {
+        console.log('yandex device', device);
         this.yaSmartHome = yaSmartHome;
         this.device = device;
         this.capabilities = device.capabilities;

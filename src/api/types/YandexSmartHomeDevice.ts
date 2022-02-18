@@ -8,6 +8,8 @@ export class YandexSmartHomeDevice {
   private capabilities: any;
 
   constructor(yaSmartHome: YandexSmartHome, device) {
+    console.log('yandex device', device);
+
     this.yaSmartHome = yaSmartHome;
     this.device = device;
     this.capabilities = device.capabilities;

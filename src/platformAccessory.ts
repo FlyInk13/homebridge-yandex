@@ -13,8 +13,8 @@ export class ExamplePlatformAccessory {
 
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Manufacturer, device.getDeviceInfo().manufacturer)
-      .setCharacteristic(this.platform.Characteristic.Model, device.getDeviceInfo().model)
+      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'manufacturer') // device.getDeviceInfo().manufacturer
+      .setCharacteristic(this.platform.Characteristic.Model, 'model') // device.getDeviceInfo().model
       .setCharacteristic(this.platform.Characteristic.SerialNumber, device.getId());
 
     this.service = this.accessory.getService(this.platform.Service.Lightbulb) || this.accessory.addService(this.platform.Service.Lightbulb);
