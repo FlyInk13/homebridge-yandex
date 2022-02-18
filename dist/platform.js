@@ -25,26 +25,17 @@ class HomebridgeYandexPlatform {
         this.accessories.push(accessory);
     }
     async discoverDevices() {
-        const exampleDevices = [
-            {
-                exampleUniqueId: 'ABCD',
-                exampleDisplayName: 'Bedroom',
-            },
-            {
-                exampleUniqueId: 'EFGH',
-                exampleDisplayName: 'Kitchen',
-            },
-        ];
         const devices = await this.yandexSmartHome.getDevices();
         for (const device of devices) {
             const uuid = this.api.hap.uuid.generate(device.getId());
             const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
             if (existingAccessory) {
-                this.log.info('Adding old accessory:', device.getName());
-                // new ExamplePlatformAccessory(this, existingAccessory);
+                this.log.debug('Adding old accessory:', device.getName());
+                existingAccessory.context.device = device;
+                new platformAccessory_1.ExamplePlatformAccessory(this, existingAccessory);
             }
             else {
-                this.log.info('Adding new accessory:', device.getName());
+                this.log.debug('Adding new accessory:', device.getName());
                 const accessory = new this.api.platformAccessory(device.getName(), uuid);
                 accessory.context.device = device;
                 new platformAccessory_1.ExamplePlatformAccessory(this, accessory);

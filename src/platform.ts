@@ -32,17 +32,6 @@ export class HomebridgeYandexPlatform implements DynamicPlatformPlugin {
   }
 
   async discoverDevices() {
-    const exampleDevices = [
-      {
-        exampleUniqueId: 'ABCD',
-        exampleDisplayName: 'Bedroom',
-      },
-      {
-        exampleUniqueId: 'EFGH',
-        exampleDisplayName: 'Kitchen',
-      },
-    ];
-
     const devices: YandexSmartHomeDevice[] = await this.yandexSmartHome.getDevices();
 
     for (const device of devices) {
@@ -50,10 +39,11 @@ export class HomebridgeYandexPlatform implements DynamicPlatformPlugin {
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 
       if (existingAccessory) {
-        this.log.info('Adding old accessory:', device.getName());
-        // new ExamplePlatformAccessory(this, existingAccessory);
+        this.log.debug('Adding old accessory:', device.getName());
+        existingAccessory.context.device = device;
+        new ExamplePlatformAccessory(this, existingAccessory);
       } else {
-        this.log.info('Adding new accessory:', device.getName());
+        this.log.debug('Adding new accessory:', device.getName());
         const accessory = new this.api.platformAccessory(device.getName(), uuid);
         accessory.context.device = device;
         new ExamplePlatformAccessory(this, accessory);
