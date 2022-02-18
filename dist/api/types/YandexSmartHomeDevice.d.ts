@@ -17,8 +17,8 @@ export declare class YandexSmartHomeDevice {
     toggleSwitchState(): Promise<any>;
     sendCapabilityAction(...actions: any[]): Promise<any>;
     setSwitchState(value: any): Promise<any>;
-    setColorSettings(value: any): Promise<any>;
-    setRange(value: any): Promise<any>;
+    setColorSettings(temperature_k: any): Promise<any>;
+    setRange(brightness: any): Promise<any>;
     setTemperature(temperature_k: any, brightness: any): Promise<any>;
 }
 //# sourceMappingURL=YandexSmartHomeDevice.d.ts.map

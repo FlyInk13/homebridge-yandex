@@ -63,28 +63,40 @@ class YandexSmartHomeDevice {
             type: 'devices.capabilities.on_off',
             retrievable: true,
             state: { instance: 'on', value }
+        }).then((res) => {
+            const { state: on_off } = this.getCapabilityByType('devices.capabilities.on_off');
+            on_off.value = value;
+            return res;
         });
     }
     // color_setting
-    async setColorSettings(value) {
+    async setColorSettings(temperature_k) {
         return this.sendCapabilityAction({
             type: 'devices.capabilities.color_setting',
             retrievable: true,
             state: {
                 instance: "temperature_k",
-                value: value,
+                value: temperature_k,
             }
+        }).then((res) => {
+            const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
+            color_setting.value = temperature_k;
+            return res;
         });
     }
     // range
-    async setRange(value) {
+    async setRange(brightness) {
         return this.sendCapabilityAction({
             type: 'devices.capabilities.range',
             retrievable: true,
             state: {
                 instance: "brightness",
-                value: value,
+                value: brightness,
             }
+        }).then((res) => {
+            const { state: range } = this.getCapabilityByType('devices.capabilities.range');
+            range.value = brightness;
+            return res;
         });
     }
     //
@@ -103,6 +115,12 @@ class YandexSmartHomeDevice {
                 instance: "brightness",
                 value: brightness,
             }
+        }).then((res) => {
+            const { state: range } = this.getCapabilityByType('devices.capabilities.range');
+            range.value = brightness;
+            const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
+            color_setting.value = temperature_k;
+            return res;
         });
     }
 }
