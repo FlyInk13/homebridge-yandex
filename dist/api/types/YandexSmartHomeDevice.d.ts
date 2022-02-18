@@ -9,6 +9,8 @@ export declare class YandexSmartHomeDevice {
     getDeviceData(): any;
     getType(): any;
     getCapabilityByType(type: any): any;
+    getCapabilityValueByType(type: any): any;
+    setCapabilityValueByType(type: any, value: any): boolean;
     route(commandName: any): {
         status: string;
     };

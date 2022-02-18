@@ -24,6 +24,18 @@ class YandexSmartHomeDevice {
     getCapabilityByType(type) {
         return this.capabilities.find(c => c.type === type);
     }
+    getCapabilityValueByType(type) {
+        var _a, _b;
+        return (_b = (_a = this.getCapabilityByType(type)) === null || _a === void 0 ? void 0 : _a.state) === null || _b === void 0 ? void 0 : _b.value;
+    }
+    setCapabilityValueByType(type, value) {
+        const capability = this.getCapabilityByType(type);
+        if (typeof (capability === null || capability === void 0 ? void 0 : capability.state) !== 'object') {
+            return false;
+        }
+        capability.state.value = value;
+        return true;
+    }
     route(commandName) {
         return { status: 'Ой, я не умею в такой тип устройства' };
     }
@@ -64,8 +76,7 @@ class YandexSmartHomeDevice {
             retrievable: true,
             state: { instance: 'on', value }
         }).then((res) => {
-            const { state: on_off } = this.getCapabilityByType('devices.capabilities.on_off');
-            on_off.value = value;
+            this.setCapabilityValueByType('devices.capabilities.on_off', value);
             return res;
         });
     }
@@ -79,8 +90,7 @@ class YandexSmartHomeDevice {
                 value: temperature_k,
             }
         }).then((res) => {
-            const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
-            color_setting.value = temperature_k;
+            this.setCapabilityValueByType('devices.capabilities.color_setting', temperature_k);
             return res;
         });
     }
@@ -94,8 +104,7 @@ class YandexSmartHomeDevice {
                 value: brightness,
             }
         }).then((res) => {
-            const { state: range } = this.getCapabilityByType('devices.capabilities.range');
-            range.value = brightness;
+            this.setCapabilityValueByType('devices.capabilities.range', brightness);
             return res;
         });
     }
@@ -116,10 +125,8 @@ class YandexSmartHomeDevice {
                 value: brightness,
             }
         }).then((res) => {
-            const { state: range } = this.getCapabilityByType('devices.capabilities.range');
-            range.value = brightness;
-            const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
-            color_setting.value = temperature_k;
+            this.setCapabilityValueByType('devices.capabilities.color_setting', temperature_k);
+            this.setCapabilityValueByType('devices.capabilities.range', brightness);
             return res;
         });
     }

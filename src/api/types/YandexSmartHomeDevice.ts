@@ -36,8 +36,23 @@ export class YandexSmartHomeDevice {
     return this.capabilities.find(c => c.type === type);
   }
 
+  getCapabilityValueByType(type) {
+    return this.getCapabilityByType(type)?.state?.value;
+  }
+
+  setCapabilityValueByType(type, value) {
+    const capability = this.getCapabilityByType(type);
+
+    if (typeof capability?.state !== 'object') {
+      return false;
+    }
+
+    capability.state.value = value;
+    return true;
+  }
+
   route(commandName) {
-    return { status: 'Ой, я не умею в такой тип устройства' }
+    return { status: 'Ой, я не умею в такой тип устройства' };
   }
 
   // update self data
@@ -80,9 +95,7 @@ export class YandexSmartHomeDevice {
       retrievable: true,
       state: { instance: 'on', value }
     }).then((res) => {
-      const { state: on_off } = this.getCapabilityByType('devices.capabilities.on_off');
-      on_off.value = value;
-
+      this.setCapabilityValueByType('devices.capabilities.on_off', value);
       return res;
     });
   }
@@ -97,9 +110,7 @@ export class YandexSmartHomeDevice {
         value: temperature_k,
       }
     }).then((res) => {
-      const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
-      color_setting.value = temperature_k;
-
+      this.setCapabilityValueByType('devices.capabilities.color_setting', temperature_k);
       return res;
     });
   }
@@ -114,9 +125,7 @@ export class YandexSmartHomeDevice {
         value: brightness,
       }
     }).then((res) => {
-      const { state: range } = this.getCapabilityByType('devices.capabilities.range');
-      range.value = brightness;
-
+      this.setCapabilityValueByType('devices.capabilities.range', brightness);
       return res;
     });
   }
@@ -138,11 +147,8 @@ export class YandexSmartHomeDevice {
         value: brightness,
       }
     }).then((res) => {
-      const { state: range } = this.getCapabilityByType('devices.capabilities.range');
-      range.value = brightness;
-      const { state: color_setting } = this.getCapabilityByType('devices.capabilities.color_setting');
-      color_setting.value = temperature_k;
-
+      this.setCapabilityValueByType('devices.capabilities.color_setting', temperature_k);
+      this.setCapabilityValueByType('devices.capabilities.range', brightness);
       return res;
     });
   }
