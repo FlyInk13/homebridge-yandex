@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.YandexSmartHome = void 0;
-const request_promise_native_1 = __importDefault(require("request-promise-native"));
+const axios_1 = __importDefault(require("axios"));
 const YandexSmartHomeDevice_1 = require("./types/YandexSmartHomeDevice");
 class YandexSmartHome {
     constructor(AuthorizationHeader) {
         this.AuthorizationHeader = AuthorizationHeader;
     }
     async request(url, data) {
-        return (0, request_promise_native_1.default)({ url, ...data }).then(body => JSON.parse(body));
+        return (0, axios_1.default)({ url, ...data }).then(res => JSON.parse(res.data));
     }
     async getApiData(method, data) {
         return this.request('https://api.iot.yandex.net/v1.0/' + method, {
@@ -24,7 +24,7 @@ class YandexSmartHome {
     async postApiData(method, payload) {
         return this.getApiData(method, {
             method: 'POST',
-            body: JSON.stringify(payload),
+            data: JSON.stringify(payload),
         });
     }
     getDevices() {

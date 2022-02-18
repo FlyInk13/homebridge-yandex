@@ -27,7 +27,7 @@
     "homebridge-plugin"
   ],
   "dependencies": {
-    "request-promise-native": "^1.0.9"
+    "axios": "^0.26.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.9",

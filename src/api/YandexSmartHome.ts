@@ -1,4 +1,4 @@
-import request from 'request-promise-native';
+import axios from 'axios';
 import { YandexSmartHomeDevice } from './types/YandexSmartHomeDevice';
 
 export class YandexSmartHome {
@@ -9,7 +9,7 @@ export class YandexSmartHome {
   }
 
   async request(url: string, data) {
-    return request({ url, ...data }).then(body => JSON.parse(body));
+    return axios({ url, ...data }).then(res => JSON.parse(res.data));
   }
 
   async getApiData(method, data) {
@@ -24,7 +24,7 @@ export class YandexSmartHome {
   async postApiData(method, payload) {
     return this.getApiData(method, {
       method: 'POST',
-      body: JSON.stringify(payload),
+      data: JSON.stringify(payload),
     });
   }
 
