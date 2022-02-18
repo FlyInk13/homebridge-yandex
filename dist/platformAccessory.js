@@ -20,19 +20,28 @@ class ExamplePlatformAccessory {
             .onSet(this.setOn.bind(this)) // SET - bind to the `setOn` method below
             .onGet(this.getOn.bind(this)); // GET - bind to the `getOn` method below
         this.service.getCharacteristic(this.platform.Characteristic.Brightness)
-            .onSet(this.setBrightness.bind(this)); // SET - bind to the 'setBrightness` method below
+            .onSet(this.setBrightness.bind(this)) // SET - bind to the 'setBrightness` method below
+            .onGet(this.getBrightness.bind(this)); // GET - bind to the 'getBrightness` method below
     }
     async setOn(value) {
         const device = this.accessory.context.device;
-        this.platform.log.debug('Set Characteristic On ->', value);
+        this.platform.log.debug('Set On:', value);
         await device.setSwitchState(value);
     }
     async getOn() {
         const device = this.accessory.context.device;
         await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
         const isOn = await device.getSwitchState();
-        this.platform.log.debug('Get Characteristic On ->', isOn);
+        this.platform.log.debug('Get On:', isOn);
         return isOn;
+    }
+    async getBrightness() {
+        const device = this.accessory.context.device;
+        await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
+        const capability = await device.getCapabilityByType('devices.capabilities.range');
+        const value = capability ? capability.state.value : 50;
+        this.platform.log.debug('Get Brightness:', value);
+        return value;
     }
     async setBrightness(value) {
         const device = this.accessory.context.device;
@@ -40,7 +49,7 @@ class ExamplePlatformAccessory {
         const maxTemp = 6500;
         const curTemp = Math.max(0, value - 50);
         const newTemp = minTemp + Math.ceil(curTemp / 50 * maxTemp);
-        this.platform.log.debug('Set Characteristic Brightness -> ', newTemp, value);
+        this.platform.log.debug('Set Brightness: ', newTemp, value);
         await device.setTemperature(newTemp, value);
     }
 }

@@ -7,6 +7,7 @@ export declare class ExamplePlatformAccessory {
     constructor(platform: HomebridgeYandexPlatform, accessory: PlatformAccessory);
     setOn(value: CharacteristicValue): Promise<void>;
     getOn(): Promise<CharacteristicValue>;
+    getBrightness(): Promise<CharacteristicValue>;
     setBrightness(value: CharacteristicValue): Promise<void>;
 }
 //# sourceMappingURL=platformAccessory.d.ts.map
