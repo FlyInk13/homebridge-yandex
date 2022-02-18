@@ -48,7 +48,7 @@ class ExamplePlatformAccessory {
         const minTemp = 1500;
         const maxTemp = 6500;
         const curTemp = Math.max(0, value - 50);
-        const newTemp = minTemp + Math.ceil(curTemp / 50 * maxTemp);
+        const newTemp = minTemp + Math.ceil(curTemp / 50 * (maxTemp - minTemp));
         this.platform.log.debug('Set Brightness: ', newTemp, value);
         await device.setTemperature(newTemp, value);
     }
