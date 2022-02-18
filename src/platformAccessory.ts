@@ -1,6 +1,7 @@
 import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
 import { HomebridgeYandexPlatform } from './platform';
 import { YandexSmartHomeDevice } from "./api/types/YandexSmartHomeDevice";
+import { loadavg } from "os";
 
 export class ExamplePlatformAccessory {
   private service: Service;
@@ -30,20 +31,21 @@ export class ExamplePlatformAccessory {
 
   async setOn(value: CharacteristicValue) {
     const device: YandexSmartHomeDevice = this.accessory.context.device;
-    this.platform.log.debug('Set Characteristic On ->', value);
+    this.platform.log.info('Set Characteristic On ->', value);
     await device.setSwitchState(value);
   }
 
   async getOn(): Promise<CharacteristicValue> {
     const device: YandexSmartHomeDevice = this.accessory.context.device;
     const isOn = await device.getSwitchState();
-    this.platform.log.debug('Get Characteristic On ->', isOn);
+    console.log('getOn', isOn);
+    this.platform.log.info('Get Characteristic On ->', isOn);
     return isOn;
   }
 
   async setBrightness(value: CharacteristicValue) {
     const device: YandexSmartHomeDevice = this.accessory.context.device;
-    this.platform.log.debug('Set Characteristic Brightness -> ', value);
+    this.platform.log.info('Set Characteristic Brightness -> ', value);
     await device.setRange(value);
   }
 }
