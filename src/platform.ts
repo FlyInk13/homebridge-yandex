@@ -50,12 +50,12 @@ export class HomebridgeYandexPlatform implements DynamicPlatformPlugin {
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 
       if (existingAccessory) {
-        new ExamplePlatformAccessory(this, existingAccessory, device);
+        new ExamplePlatformAccessory(this, existingAccessory);
       } else {
         this.log.info('Adding new accessory:', device.getName());
         const accessory = new this.api.platformAccessory(device.getName(), uuid);
         accessory.context.device = device;
-        new ExamplePlatformAccessory(this, accessory, device);
+        new ExamplePlatformAccessory(this, accessory);
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
     }

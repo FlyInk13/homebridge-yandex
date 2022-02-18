@@ -8,19 +8,20 @@ export class ExamplePlatformAccessory {
 
   constructor(
     private readonly platform: HomebridgeYandexPlatform,
-    private readonly accessory: PlatformAccessory,
-    private readonly device: YandexSmartHomeDevice
+    private readonly accessory: PlatformAccessory
   ) {
+    const device: YandexSmartHomeDevice = this.accessory.context.device;
+    const { type, external_id, id } = device.getDeviceData();
+    const name = device.getName();
 
-    this.platform.log.warn(device.getDeviceInfo());
     // set accessory information
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'manufacturer') // device.getDeviceInfo().manufacturer
-      .setCharacteristic(this.platform.Characteristic.Model, 'model') // device.getDeviceInfo().model
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, device.getId());
+      .setCharacteristic(this.platform.Characteristic.Manufacturer, type)
+      .setCharacteristic(this.platform.Characteristic.Model, external_id)
+      .setCharacteristic(this.platform.Characteristic.SerialNumber, id);
 
     this.service = this.accessory.getService(this.platform.Service.Lightbulb) || this.accessory.addService(this.platform.Service.Lightbulb);
-    this.service.setCharacteristic(this.platform.Characteristic.Name, device.getName());
+    this.service.setCharacteristic(this.platform.Characteristic.Name, name);
 
     this.service.getCharacteristic(this.platform.Characteristic.On)
       .onSet(this.setOn.bind(this))                // SET - bind to the `setOn` method below

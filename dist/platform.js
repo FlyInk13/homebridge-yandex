@@ -40,13 +40,13 @@ class HomebridgeYandexPlatform {
             const uuid = this.api.hap.uuid.generate(device.getId());
             const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
             if (existingAccessory) {
-                new platformAccessory_1.ExamplePlatformAccessory(this, existingAccessory, device);
+                new platformAccessory_1.ExamplePlatformAccessory(this, existingAccessory);
             }
             else {
                 this.log.info('Adding new accessory:', device.getName());
                 const accessory = new this.api.platformAccessory(device.getName(), uuid);
                 accessory.context.device = device;
-                new platformAccessory_1.ExamplePlatformAccessory(this, accessory, device);
+                new platformAccessory_1.ExamplePlatformAccessory(this, accessory);
                 this.api.registerPlatformAccessories(settings_1.PLUGIN_NAME, settings_1.PLATFORM_NAME, [accessory]);
             }
         }

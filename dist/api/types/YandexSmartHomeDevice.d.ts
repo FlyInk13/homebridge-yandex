@@ -6,7 +6,7 @@ export declare class YandexSmartHomeDevice {
     constructor(yaSmartHome: YandexSmartHome, device: any);
     getId(): any;
     getName(): any;
-    getDeviceInfo(): any;
+    getDeviceData(): any;
     getType(): any;
     getCapabilityByType(type: any): any;
     route(commandName: any): {

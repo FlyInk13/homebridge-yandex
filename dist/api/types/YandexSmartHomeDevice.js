@@ -15,8 +15,8 @@ class YandexSmartHomeDevice {
     getName() {
         return this.device.name;
     }
-    getDeviceInfo() {
-        return this.device.device_info;
+    getDeviceData() {
+        return this.device;
     }
     getType() {
         return this.device.type;
