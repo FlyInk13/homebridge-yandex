@@ -30,14 +30,14 @@ class ExamplePlatformAccessory {
     }
     async getOn() {
         const device = this.accessory.context.device;
-        await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
+        // await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
         const isOn = await device.getSwitchState();
         this.platform.log.debug('Get On:', isOn);
         return isOn;
     }
     async getBrightness() {
         const device = this.accessory.context.device;
-        await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
+        // await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
         const capability = await device.getCapabilityByType('devices.capabilities.range');
         const value = capability ? capability.state.value : 50;
         this.platform.log.debug('Get Brightness:', value);

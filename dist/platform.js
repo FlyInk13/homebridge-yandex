@@ -35,6 +35,7 @@ class HomebridgeYandexPlatform {
             if (existingAccessory) {
                 this.log.debug('Adding old accessory:', device.getName());
                 existingAccessory.context.device = device;
+                this.api.updatePlatformAccessories([existingAccessory]);
                 new platformAccessory_1.ExamplePlatformAccessory(this, existingAccessory);
             }
             else {
