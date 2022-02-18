@@ -35,6 +35,10 @@ export class HomebridgeYandexPlatform implements DynamicPlatformPlugin {
     const devices: YandexSmartHomeDevice[] = await this.yandexSmartHome.getDevices();
 
     for (const device of devices) {
+      if (device.getType() !== 'devices.types.light') {
+        continue;
+      }
+
       const uuid = this.api.hap.uuid.generate(device.getId());
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 

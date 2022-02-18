@@ -51,7 +51,10 @@ export class ExamplePlatformAccessory {
 
   async setBrightness(value: CharacteristicValue) {
     const device: YandexSmartHomeDevice = this.accessory.context.device;
-    this.platform.log.debug('Set Characteristic Brightness -> ', value);
-    await device.setRange(value);
+    const minTemp = 1500;
+    const maxTemp = 6500;
+    const temp = Math.ceil(minTemp + (value as number / 100 * maxTemp));
+    this.platform.log.debug('Set Characteristic Brightness -> ', temp, value);
+    await device.setTemperature(temp, value);
   }
 }
