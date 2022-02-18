@@ -38,9 +38,10 @@ class ExamplePlatformAccessory {
         const device = this.accessory.context.device;
         const minTemp = 1500;
         const maxTemp = 6500;
-        const temp = Math.ceil(minTemp + (value / 100 * maxTemp));
-        this.platform.log.debug('Set Characteristic Brightness -> ', temp, value);
-        await device.setTemperature(temp, value);
+        const curTemp = Math.max(0, value - 50);
+        const newTemp = minTemp + Math.ceil(curTemp / 50 * maxTemp);
+        this.platform.log.debug('Set Characteristic Brightness -> ', newTemp, value);
+        await device.setTemperature(newTemp, value);
     }
 }
 exports.ExamplePlatformAccessory = ExamplePlatformAccessory;
