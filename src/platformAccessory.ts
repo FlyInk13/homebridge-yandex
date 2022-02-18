@@ -41,6 +41,9 @@ export class ExamplePlatformAccessory {
 
   async getOn(): Promise<CharacteristicValue> {
     const device: YandexSmartHomeDevice = this.accessory.context.device;
+
+    await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
+
     const isOn = await device.getSwitchState();
     this.platform.log.debug('Get Characteristic On ->', isOn);
     return isOn;

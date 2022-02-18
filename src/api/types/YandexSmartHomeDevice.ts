@@ -39,6 +39,19 @@ export class YandexSmartHomeDevice {
     return { status: 'Ой, я не умею в такой тип устройства' }
   }
 
+  // update self data
+  async loadDeviceData() {
+    return this.yaSmartHome.postApiData('devices/query', {
+      devices: [
+        {
+          id: this.getId(),
+        }
+      ]
+    }).then(({ devices: [device] }) => {
+      this.device = device;
+    });
+  }
+
   // on_off
   getSwitchState() {
     const capability = this.getCapabilityByType('devices.capabilities.on_off');

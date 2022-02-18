@@ -12,6 +12,7 @@ export declare class YandexSmartHomeDevice {
     route(commandName: any): {
         status: string;
     };
+    loadDeviceData(): Promise<void>;
     getSwitchState(): any;
     toggleSwitchState(): Promise<any>;
     sendCapabilityAction(...actions: any[]): Promise<any>;

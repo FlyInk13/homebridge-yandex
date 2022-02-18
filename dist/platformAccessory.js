@@ -29,6 +29,7 @@ class ExamplePlatformAccessory {
     }
     async getOn() {
         const device = this.accessory.context.device;
+        await device.loadDeviceData().catch((error) => this.platform.log.debug('loadDeviceData error', error));
         const isOn = await device.getSwitchState();
         this.platform.log.debug('Get Characteristic On ->', isOn);
         return isOn;
