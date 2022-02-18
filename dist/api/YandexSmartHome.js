@@ -11,7 +11,7 @@ class YandexSmartHome {
         this.AuthorizationHeader = AuthorizationHeader;
     }
     async request(url, data) {
-        return (0, axios_1.default)({ url, ...data }).then(res => JSON.parse(res.data));
+        return (0, axios_1.default)({ url, ...data }).then(res => res.data);
     }
     async getApiData(method, data) {
         return this.request('https://api.iot.yandex.net/v1.0/' + method, {

@@ -9,7 +9,7 @@ export class YandexSmartHome {
   }
 
   async request(url: string, data) {
-    return axios({ url, ...data }).then(res => JSON.parse(res.data));
+    return axios({ url, ...data }).then(res => res.data);
   }
 
   async getApiData(method, data) {
