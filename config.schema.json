@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "YandexSmartHome",
   "pluginType": "platform",
   "singular": true,
   "schema": {
@@ -9,7 +9,13 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "YandexSmartHome"
+      },
+      "access_token": {
+        "title": "Api Access Token",
+        "type": "string",
+        "required": true,
+        "default": ""
       }
     }
   }
