@@ -29,15 +29,15 @@ class YandexSmartHomeDevice {
     }
     // update self data
     async loadDeviceData() {
-        return this.yaSmartHome.postApiData('devices/query', {
-            devices: [
-                {
-                    id: this.getId(),
-                }
-            ]
-        }).then(({ devices: [device] }) => {
-            this.device = device;
-        });
+        // todo: https://yandex.ru/dev/dialogs/smart-home/doc/reference/post-devices-query.html
+        const devices = await this.yaSmartHome.getDevices();
+        const device = devices.find((device) => device.getId() === this.getId());
+        if (device) {
+            this.device = device.getDeviceData();
+        }
+        else {
+            throw { error: 'not found' };
+        }
     }
     // on_off
     getSwitchState() {

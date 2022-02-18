@@ -28,7 +28,7 @@ export class YandexSmartHome {
     });
   }
 
-  getDevices() {
+  getDevices(): Promise<YandexSmartHomeDevice[]> {
     return this.getApiData('user/info', {}).then(({ devices }) => {
       return devices.map((device) => {
         switch (device.type) {
